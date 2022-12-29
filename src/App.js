@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import './assets/css/App.css';
+import React, {useState} from 'react';
+import List from './components/List.jsx'
+import Form from './components/Form.jsx'
+
+const generateUniqueId = require('generate-unique-id');
 
 function App() {
+
+  const todoList = [
+    {id: generateUniqueId({useLetters: false}), task: 'Clean my room', priority: "Medium", done: false},
+    {id: generateUniqueId({useLetters: false}), task: 'Cook', priority: "Low", done: false},
+    {id: generateUniqueId({useLetters: false}), task: 'Laundry', priority: "High", done: false}
+  ]
+
+  //state
+  const [toDos, setTodos] = useState(todoList)
+
+  //agregar todo
+  const addTodo = (newTodo) => {
+    newTodo.id = generateUniqueId({useLetters: false})
+    setTodos([
+      ...toDos,
+      newTodo
+    ])
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        TODO LIST
       </header>
+      <section className="App-body">
+      <Form addTodo={addTodo}/>
+      <List toDos={toDos}/>
+      </section>
     </div>
   );
 }
