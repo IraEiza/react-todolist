@@ -13,16 +13,28 @@ function App() {
     {id: generateUniqueId({useLetters: false}), task: 'Laundry', priority: "High", done: false}
   ]
 
-  //state
-  const [toDos, setTodos] = useState(todoList)
+  // State (datos)
+  const [todos, setTodos] = useState(todoList)
 
-  //agregar todo
+  // Agregar todo
   const addTodo = (newTodo) => {
-    newTodo.id = generateUniqueId({useLetters: false})
+    newTodo.id = generateUniqueId({useLetters: false});
+    newTodo.done = false;
     setTodos([
-      ...toDos,
+      ...todos,
       newTodo
     ])
+  }
+
+  // Cambiar estado del todo
+  const switchDone = (id) => {
+    setTodos(todos.map(todo => todo.id === id ? {...todo, done: !todo.done} : {...todo})
+    )
+  }
+
+  // Eliminar todo de la lista
+  const deleteTodo = (id) => {
+    setTodos(todos.filter(todo => todo.id !== id))
   }
 
   return (
@@ -32,7 +44,7 @@ function App() {
       </header>
       <section className="App-body">
       <Form addTodo={addTodo}/>
-      <List toDos={toDos}/>
+      <List todos={todos} switchDone={switchDone} deleteTodo={deleteTodo}/>
       </section>
     </div>
   );

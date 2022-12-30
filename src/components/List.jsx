@@ -1,17 +1,17 @@
 import React from 'react';
-import '../assets/css/ToDos.css'
+import '../assets/css/todos.css'
 
-const List = (props) => {
+const List = ({todos, switchDone, deleteTodo}) => {
 
   return (
     <section className="list">
       {
-        props.toDos.map(toDo => {
+        todos.map(todo => {
           return (
-            <div className="todo-card" key={toDo.id}>
+            <div className="todo-card" key={todo.id} style={todo.done === true ? {backgroundColor: "green"}: {backgroundColor: "blue"}}>
               <div className="container">
-                <span> <input type="checkbox" /> {toDo.task}</span>
-                <button onClick="delete">Delete</button>
+                <span> <input type="checkbox" checked={todo.done} onChange={() => switchDone(todo.id)}/> {todo.task}</span>
+                <button onClick={() => deleteTodo(todo.id)}>Delete</button>
               </div>
             </div>
           )
