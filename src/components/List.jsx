@@ -8,9 +8,9 @@ const List = ({todos, switchDone, deleteTodo}) => {
       {
         todos.map(todo => {
           return (
-            <div className="todo-card" key={todo.id} style={todo.done === true ? {backgroundColor: "green"}: {backgroundColor: "blue"}}>
+            <div className="todo-card" key={todo.id} style={todo.done === true ? {backgroundColor: "green", textDecoration: "line-through"}: {backgroundColor: "blue", textDecoration: "none"}}>
               <div className="container">
-                <span> <input type="checkbox" checked={todo.done} onChange={() => switchDone(todo.id)}/> {todo.task}</span>
+                <span> <input type="checkbox" checked={todo.done} onChange={() => switchDone(todo.id)}/> {todo.priority[0]} -  {todo.task}</span>
                 <button onClick={() => deleteTodo(todo.id)}>Delete</button>
               </div>
             </div>

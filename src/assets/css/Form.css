@@ -7,12 +7,12 @@
 
 .inputs {
   margin: 0 auto;
-  
 }
 
 label {
   margin: 0 auto;
   width: 280px;
+  padding: 8px;
   display: flex;
   justify-content: space-between;
 }

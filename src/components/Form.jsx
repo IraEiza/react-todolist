@@ -31,10 +31,10 @@ const Form = ({addTodo}) => {
     <div>
       <form id="form" onSubmit = {handleSubmit}>
         <section className="inputs">
-        <label for="to-do">Task to do: 
+        <label htmlFor="to-do">Task to do: 
         <input type="text" id="to-do" placeholder="Insert task" value={newTodo} onChange={handleOnChangeTask}></input>
         </label>
-        <label for="Priority">Priority: 
+        <label htmlFor="Priority">Priority: 
         <select id="Priority" name="select" value={newType} onChange={handleOnChangeType}>
           <option value="Low" defaultValue>Low</option>
           <option value="Medium">Medium</option>

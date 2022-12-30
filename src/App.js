@@ -1,5 +1,5 @@
 import './assets/css/App.css';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import List from './components/List.jsx'
 import Form from './components/Form.jsx'
 
@@ -8,9 +8,9 @@ const generateUniqueId = require('generate-unique-id');
 function App() {
 
   const todoList = [
-    {id: generateUniqueId({useLetters: false}), task: 'Clean my room', priority: "Medium", done: false},
-    {id: generateUniqueId({useLetters: false}), task: 'Cook', priority: "Low", done: false},
-    {id: generateUniqueId({useLetters: false}), task: 'Laundry', priority: "High", done: false}
+    { id: generateUniqueId({ useLetters: false }), task: 'Eat', priority: "High", done: false },
+    { id: generateUniqueId({ useLetters: false }), task: 'Coding', priority: "Medium", done: false },
+    { id: generateUniqueId({ useLetters: false }), task: 'Sleep', priority: "Low", done: false }
   ]
 
   // State (datos)
@@ -18,17 +18,21 @@ function App() {
 
   // Agregar todo
   const addTodo = (newTodo) => {
-    newTodo.id = generateUniqueId({useLetters: false});
+    newTodo.id = generateUniqueId({ useLetters: false });
     newTodo.done = false;
-    setTodos([
+    setTodos(sortTodos([
       ...todos,
       newTodo
-    ])
+    ]))
+    
   }
 
-  // Cambiar estado del todo
+  // Cambiar de hecho a no hecho
   const switchDone = (id) => {
-    setTodos(todos.map(todo => todo.id === id ? {...todo, done: !todo.done} : {...todo})
+    setTodos(
+      sortTodos(
+        todos.map(todo => todo.id === id ? { ...todo, done: !todo.done } : { ...todo })
+      )
     )
   }
 
@@ -37,14 +41,30 @@ function App() {
     setTodos(todos.filter(todo => todo.id !== id))
   }
 
+  //Ordenar todos
+  function sortTodos(todos) {
+    const order = ['High', 'Medium', 'Low']
+    return todos
+      .sort((a, b) => a.done === false && b.done === true ? -1 : 1)
+      .sort(function (a, b) {
+        if (a.done === false && b.done === false) {
+          console.log()
+          return order.indexOf(a.priority) - order.indexOf(b.priority)
+        }
+        else {
+          return 0
+        }
+      })
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         TODO LIST
       </header>
       <section className="App-body">
-      <Form addTodo={addTodo}/>
-      <List todos={todos} switchDone={switchDone} deleteTodo={deleteTodo}/>
+        <Form addTodo={addTodo} />
+        <List todos={todos} switchDone={switchDone} deleteTodo={deleteTodo} />
       </section>
     </div>
   );
