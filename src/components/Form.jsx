@@ -4,7 +4,7 @@ import '../assets/css/Form.css'
 const Form = ({addTodo}) => {
   // Cada variable (estado) necesita su propio Hook
   const [newTodo, setNewTodo] = useState('');
-  const [newType, setNewType] = useState('');
+  const [newType, setNewType] = useState('Low');
 
   // "Enlaza" el valor del estado al input actualizándolo continuamente
   const handleOnChangeTask = (event) => {
